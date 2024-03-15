@@ -1,0 +1,558 @@
+:root{
+  --default-background: #111;
+  --outside-border: #777;
+  --default-border: #333;
+  --default-text: rgb(150,150,150);
+  --highlight-border: #555;
+  --highlight-background: rgba(150,150,150,0.1);
+  --execute-icon: #a7e88b;
+  --execute-border: #bbe6a8;
+  --highlight-sidebar: #333;
+  --nav-icon-color: #c8c8c8;
+  --active-nav-icon: #626262;
+}
+
+html,body{
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.titlebar {
+  height: 55px;
+  background: var(--default-background);
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--outside-border);
+  border-bottom-width: 1px;
+  border-bottom-color: var(--default-border);
+  padding-bottom: 0px;
+  padding-right: 10px;
+  gap: 3px;
+  z-index: 1;
+}
+
+.titlebar-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  transition: all 0.5s;
+  position:initial;
+  margin-right: 10px;
+}
+
+.titlebar-button:first-of-type {
+  margin-left: auto;
+}
+
+.titlebar > h6{
+  color: var(--outside-border);
+  font-family:Arial, Helvetica, sans-serif;
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
+  font-size: 17px;
+  position: absolute;
+  left: 30px;
+  top: 6px;
+}
+
+.titlebar-button img{
+  height: 17px;
+}
+
+.titlebar > img{
+  height: 20px;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+}
+
+.titlebar > svg{
+  position: relative;
+  top: 2.5px;
+  left: 5px;
+  width: 40px;
+  height: 40px;
+  stroke: #9F9F9F;
+}
+
+.container {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  overflow: hidden;
+  height: 100%;
+  background-color: var(--default-background);
+}
+
+#root{
+  height: calc(100% - 2px);
+  border-radius: 5px;
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--outside-border);
+}
+
+#cur{
+  width: calc(100% - 54px);
+  height: calc(100% - 58px);
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  overflow: hidden;
+  
+}
+
+#editor-container{
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 17px);
+  bottom: 0;
+}
+
+#sidebar{
+  background-color: transparent;
+  width: 50px;
+  height: calc(100% - 52px);
+  position: relative;
+  top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-right-color: var(--default-border);
+  padding-top: 10px;
+}
+
+#sidebar button{
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#sidebar .st0{
+  fill: var(--nav-icon-color);
+  transition: all 0.3s;
+}
+
+#sidebar .st2{
+  fill: var(--nav-icon-color);
+  transition: all 0.3s;
+}
+
+#sidebar .st1{
+  stroke: var(--nav-icon-color);
+  fill: none;
+  transition: all 0.3s;
+}
+
+#sidebar button > svg{
+  width: 40px;
+  aspect-ratio: 1/1;
+}
+
+#sidebar button:last-of-type{
+  position: absolute;
+  bottom: 14px;
+}
+
+#sidebar button:hover{
+  border-width: 1.5px;
+  border-style: solid;
+  border-color: var(--default-border);
+  background-color: var(--highlight-sidebar);
+}
+
+#sidebar button:hover .st0{
+  fill: var(--default-background);
+}
+
+#sidebar button:hover .st1{
+  fill: var(--default-background);
+  stroke: none;
+}
+
+#sidebar button:hover .st2{
+  fill: var(--highlight-sidebar);
+}
+
+.view-line > span {
+  text-align: left !important;
+  position: absolute;
+  align-items: left;
+  justify-content: start;
+  left: 0;
+}
+
+#tabs {
+  position: absolute;
+  height: 100px;
+  width: auto;
+  max-width: calc(100% - 172px);
+  left: 52px;
+  bottom: calc(100% - 72px);
+  z-index: 9999;
+  overflow-x: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+  overflow-x: scroll;
+  scrollbar-gutter: stable;
+}
+
+#tabs::-webkit-scrollbar{
+  position: absolute;
+  background-color: var(--default-background);
+  border-color: var(--default-border);
+  border-width: 1px;
+  border-style: solid;
+  border-top-width: 0;
+  border-left-width: 0;
+}
+
+#tabs::-webkit-scrollbar-thumb{
+  background-color: var(--default-border);
+}
+
+.tab{
+  position: relative;
+  width: 190px;
+  min-width: 100px;
+  height: 45px;
+  background-color: var(--default-background);
+  border-style: solid;
+  border-color: var(--default-border);
+  border-radius: 5px;
+  border-width: 1px;
+  bottom: -13px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: fill;
+  cursor: pointer;
+
+  transition: all 0.2s;
+}
+
+.tab:hover{
+  border-color: var(--highlight-border);
+}
+
+#addTab {
+  position: relative;
+  width: 40px;
+  min-width: 40px;
+  bottom: -13px;
+  aspect-ratio: 1;
+  background-color: var(--default-background);
+  border-style: solid;
+  border-color: var(--default-border);
+  border-radius: 5px;
+  border-width: 1px;
+  color: var(--default-text);
+  font-size: 30px;
+  font-weight: 20;
+  pointer-events: fill;
+  cursor: pointer;
+}
+
+.tab p{
+  padding: 0;
+  margin: 0;
+  color: var(--default-text);
+  font-family: sans-serif;
+  font-size: 20px;
+}
+
+#at{
+  background-color: var(--highlight-background);
+  border-color: var(--highlight-border);
+}
+
+#exec{
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: var(--default-background);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--execute-border);
+  position: absolute;
+  bottom: 20px;
+  right: 35px;
+  transition: all 0.3s;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#exec svg{
+  transition: all 0.3s;
+  width: 30px;
+}
+
+#exec .st1{
+  fill: var(--execute-icon);
+  transition: all 0.3s;
+}
+
+#exec .st0{
+  fill: transparent;
+  transition: all 0.3s;
+}
+
+#exec:hover{
+  background-color: var(--execute-border);
+  opacity: 0.5;
+}
+
+#exec:hover .st1{
+  fill: transparent;
+}
+
+#exec:hover .st0{
+  fill: var(--default-background);
+}
+
+#cloud{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  overflow: hidden;
+}
+
+#search{
+  position: relative;
+  top: 10px;
+  width: calc(100% - 75px);
+  height: 50px;
+  border-radius: 5px;
+  left: 10px;
+  border-width: 1px;
+  border-color: var(--default-border);
+  border-style: solid;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+#clear-search{
+  position: absolute;
+  top: 10px;
+  width: 50px;
+  right: 5px;
+  height: 50px;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: var(--default-border);
+  border-style: solid;
+  background-color: var(--default-background);
+  transition: all 0.3s;
+}
+
+#clear-search:hover{
+  border-color: var(--highlight-border);
+}
+
+#search input{
+  width: calc(100% - 65px);
+  height: 90%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  margin-left: 15px;
+  color: var(--default-text);
+}
+
+#search button{
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: var(--default-border);
+  border-style: solid;
+  background-color: var(--default-background);
+  transition: all 0.3s;
+}
+
+#search button:hover{
+  border-color: var(--highlight-border);
+}
+
+.script{
+  position: relative;
+  width: calc(100% - 16.5px);
+  height: 110px;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: var(--default-border);
+  border-style: solid;
+  background-color: var(--default-background);
+  left: 10px;
+  display: flex;
+  justify-content: start;
+  overflow: hidden;
+  margin-top: 5px;
+}
+
+.script img{
+  object-fit: cover;
+  height: 100%;
+  aspect-ratio: 1;
+  color: var(--default-text);
+  transition: all 0.2s;
+}
+
+.script span{
+  position: relative;
+  width: 1px;
+  height: 90%;
+  background-color: var(--default-border);
+  left: 5px;
+  top: 5px;
+}
+
+.script-contents{
+  position: relative;
+  left: 10px;
+  width: calc(100%);
+}
+
+.script-contents h1{
+  color: var(--default-text);
+  font-family: sans-serif;
+  margin: 0;
+  font-size: 35px;
+  height: 30px;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.script-contents h3{
+  position: relative;
+  color: var(--default-text);
+  font-family: sans-serif;
+  margin: 0;
+  top: 12px;
+  left: 3px;
+  font-size: medium;
+  text-align: left;
+}
+
+.script-contents button{
+  position: absolute;
+  right: 15px;
+
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: var(--default-background);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--execute-border);
+  position: absolute;
+  transition: all 0.3s;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.script-contents button:first-of-type{
+  top: 5px;
+}
+
+.script-contents button:last-of-type{
+  bottom: 5px;
+}
+
+.script-contents button .st1{
+  fill: var(--execute-icon);
+  transition: all 0.3s;
+}
+
+.script-contents button .st0{
+  fill: transparent;
+  transition: all 0.3s;
+}
+
+.script-contents button:last-of-type .st0{
+  height: 35px;
+  fill: var(--execute-icon);
+}
+
+
+.script-contents button:hover{
+  background-color: var(--execute-border);
+  opacity: 0.5;
+}
+
+.script-contents button:hover .st1{
+  fill: transparent;
+}
+
+.script-contents button:hover .st0{
+  fill: var(--default-background);
+}
+
+#scripts{
+  width: calc(100% - 5px);
+  position: relative;
+  top: 15px;
+  height: calc(100% - 70px);
+  overflow-y: scroll;
+}
+
+#scripts::-webkit-scrollbar{
+  background-color: var(--default-background);
+  border-color: var(--default-border);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 5px;
+}
+
+#scripts::-webkit-scrollbar-thumb{
+  background-color: var(--default-border);
+  border-width: 1px;
+  border-color: var(--default-border);
+  border-style: solid;
+  border-radius: 5px;
+}
