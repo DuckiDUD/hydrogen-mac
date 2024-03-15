@@ -80,6 +80,16 @@ function App() {
                   setTab(idx)
                 }}>
                   <p>{val}</p>
+                  <button onClick={() => {
+                    var newt = tabs
+                    var newc = contents
+                    newt.splice(1,idx)
+                    newc.splice(1,idx)
+                    setContents(newc)
+                    setTabs(newt)
+                    setTab(newt.length)
+                    console.log(newt,newc)
+                  }}>x</button>
                 </button>)
               })
             }

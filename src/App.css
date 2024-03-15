@@ -234,6 +234,25 @@ html,body{
   scrollbar-gutter: stable;
 }
 
+.tab button{
+  background-color: transparent;
+  color: var(--default-border);
+  border: none;
+  outline: none;
+  margin-left: auto;
+  width: 20px;
+  height: 20px;
+  font-family: monospace;
+  padding: 0;
+  font-size: 25px;
+  text-align: center;
+  cursor: pointer;
+  top: -7px;
+  pointer-events: all;
+  position: relative;
+  z-index: 2;
+}
+
 #tabs::-webkit-scrollbar{
   position: absolute;
   background-color: var(--default-background);
@@ -302,6 +321,7 @@ html,body{
 #at{
   background-color: var(--highlight-background);
   border-color: var(--highlight-border);
+  pointer-events: none;
 }
 
 #exec{
